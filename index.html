@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wybierz Pytanie</title>
+    <style>
+        body {
+            background-color: #ffffff;
+            font-family: "Courier New", Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        h1 {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .board {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .column {
+            border: 1px solid #ccc;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 130px;
+        }
+
+        .category-name {
+            background-color: #eeeeee;
+            padding: 8px 10px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+            border-bottom: 2px solid #000;
+        }
+
+        .question-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border: 3px solid #000000;
+            text-decoration: none;
+            color: #000000;
+            font-size: 24px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            background-color: #fff;
+        }
+
+        .btn:hover {
+            background-color: #000000;
+            color: #ffffff;
+            transform: scale(1.1);
+        }
+
+        .done-checkbox {
+            margin-top: 8px;
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            accent-color: #000;
+        }
+
+        /* Styl dla zaliczonych pytań */
+        .completed {
+            opacity: 0.3;
+        }
+        
+        .completed .btn {
+            pointer-events: none;
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+
+    <h1> WYBIERZ PYTANIE</h1>
+
+    <div class="board">
+        <div class="column">
+            <div class="category-name">Rymowanki</div>
+            <div class="question-item"><a href="Rymowanki1.html" class="btn">1</a><input type="checkbox" class="done-checkbox" id="Rymowanki1"></div>
+            <div class="question-item"><a href="Rymowanki2.html" class="btn">2</a><input type="checkbox" class="done-checkbox" id="Rymowanki2"></div>
+            <div class="question-item"><a href="Rymowanki3.html" class="btn">3</a><input type="checkbox" class="done-checkbox" id="Rymowanki3"></div>
+            <div class="question-item"><a href="Rymowanki4.html" class="btn">4</a><input type="checkbox" class="done-checkbox" id="Rymowanki4"></div>
+        </div>
+
+        <div class="column">
+            <div class="category-name">Prawo Jazdy</div>
+            <div class="question-item"><a href="Prawojazdy1.html" class="btn">1</a><input type="checkbox" class="done-checkbox" id="Prawojazdy1"></div>
+            <div class="question-item"><a href="Prawojazdy2.html" class="btn">2</a><input type="checkbox" class="done-checkbox" id="Prawojazdy2"></div>
+            <div class="question-item"><a href="Prawojazdy3.html" class="btn">3</a><input type="checkbox" class="done-checkbox" id="Prawojazdy3"></div>
+            <div class="question-item"><a href="Prawojazdy4.html" class="btn">4</a><input type="checkbox" class="done-checkbox" id="Prawojazdy4"></div>
+        </div>
+
+        <div class="column">
+            <div class="category-name">Gry</div>
+            <div class="question-item"><a href="Gry1.html" class="btn">1</a><input type="checkbox" class="done-checkbox" id="Gry1"></div>
+            <div class="question-item"><a href="Gry2.html" class="btn">2</a><input type="checkbox" class="done-checkbox" id="Gry2"></div>
+            <div class="question-item"><a href="Gry3.html" class="btn">3</a><input type="checkbox" class="done-checkbox" id="Gry3"></div>
+            <div class="question-item"><a href="Gry4.html" class="btn">4</a><input type="checkbox" class="done-checkbox" id="Gry4"></div>
+        </div>
+
+        <div class="column">
+            <div class="category-name">Anime</div>
+            <div class="question-item"><a href="Anime1.html" class="btn">1</a><input type="checkbox" class="done-checkbox" id="Anime1"></div>
+            <div class="question-item"><a href="Anime2.html" class="btn">2</a><input type="checkbox" class="done-checkbox" id="Anime2"></div>
+            <div class="question-item"><a href="Anime3.html" class="btn">3</a><input type="checkbox" class="done-checkbox" id="Anime3"></div>
+            <div class="question-item"><a href="Anime4.html" class="btn">4</a><input type="checkbox" class="done-checkbox" id="Anime4"></div>
+        </div>
+
+        <div class="column">
+            <div class="category-name">Historia</div>
+            <div class="question-item"><a href="Historia1.html" class="btn">1</a><input type="checkbox" class="done-checkbox" id="Historia1"></div>
+            <div class="question-item"><a href="Historia2.html" class="btn">2</a><input type="checkbox" class="done-checkbox" id="Historia2"></div>
+            <div class="question-item"><a href="Historia3.html" class="btn">3</a><input type="checkbox" class="done-checkbox" id="Historia3"></div>
+            <div class="question-item"><a href="Historia4.html" class="btn">4</a><input type="checkbox" class="done-checkbox" id="Historia4"></div>
+        </div>
+
+        <div class="column">
+            <div class="category-name">Muzyka</div>
+            <div class="question-item"><a href="Muzyka1.html" class="btn">1</a><input type="checkbox" class="done-checkbox" id="Muzyka1"></div>
+            <div class="question-item"><a href="Muzyka2.html" class="btn">2</a><input type="checkbox" class="done-checkbox" id="Muzyka2"></div>
+            <div class="question-item"><a href="Muzyka3.html" class="btn">3</a><input type="checkbox" class="done-checkbox" id="Muzyka3"></div>
+            <div class="question-item"><a href="Muzyka4.html" class="btn">4</a><input type="checkbox" class="done-checkbox" id="Muzyka4"></div>
+        </div>
+    </div>
+
+    <script>
+        // Funkcja do zapisywania i wczytywania stanu checkboxów
+        const checkboxes = document.querySelectorAll('.done-checkbox');
+
+        checkboxes.forEach(cb => {
+            // Wczytaj stan przy starcie
+            const isChecked = localStorage.getItem(cb.id) === 'true';
+            cb.checked = isChecked;
+            if(isChecked) cb.parentElement.classList.add('completed');
+
+            // Zapisz zmianę
+            cb.addEventListener('change', () => {
+                localStorage.setItem(cb.id, cb.checked);
+                if(cb.checked) {
+                    cb.parentElement.classList.add('completed');
+                } else {
+                    cb.parentElement.classList.remove('completed');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

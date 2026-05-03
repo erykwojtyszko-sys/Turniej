@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Bomba</title>
+    <style>
+        body {
+            font-family: "Courier New", Courier, monospace;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #fff;
+            overflow: hidden;
+        }
+
+        /* Statusy w rogach */
+        .status-box {
+            position: fixed;
+            padding: 15px 25px;
+            border: 3px solid black;
+            background-color: #f9f9f9;
+            font-size: 32px;
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        #timer { top: 20px; left: 20px; }
+        #points { top: 20px; right: 20px; }
+        #remaining-container { bottom: 20px; left: 20px; }
+
+        /* Pytanie */
+        .question-text {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 40px;
+            position: absolute;
+            top: 15%;
+            width: 100%;
+        }
+
+        /* Kontener środkowy */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        input[type="text"] {
+            width: 450px;
+            height: 90px;
+            border: 4px solid black;
+            font-size: 30px;
+            padding: 0 20px;
+            outline: none;
+        }
+
+        button {
+            height: 98px;
+            padding: 0 30px;
+            border: 4px solid black;
+            background: black;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 20px;
+            font-family: inherit;
+        }
+
+        /* Ekran Konca Gry */
+        #game-over-screen {
+            display: none; /* Ukryty na starcie */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        #game-over-screen h2 {
+            font-size: 80px;
+            color: red;
+            margin: 0;
+        }
+
+        #game-over-screen p {
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        #feedback {
+            font-size: 24px;
+            font-weight: bold;
+            height: 30px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="timer" class="status-box">00:00</div>
+    <div id="points" class="status-box">Pkt: 0</div>
+    
+    <div id="remaining-container" class="status-box">
+        Pozostało: <span id="remaining">1</span>
+    </div>
+
+    <div class="question-text">Pytanie: Gdzie wpadła bomba?</div>
+
+    <div class="main-container">
+        <div class="input-group">
+            <input type="text" id="answerInput" placeholder="Wpisz odpowiedź..." autocomplete="off">
+            <button id="checkBtn" onclick="checkAnswer()">SPRAWDŹ</button>
+        </div>
+        <div id="feedback"></div>
+    </div>
+
+    <div id="game-over-screen">
+        <h2>KONIEC GRY</h2>
+        <p id="final-score">Twój wynik: 0 PKT</p>
+        <button onclick="location.reload()" style="background: black; color: white; height: auto; padding: 20px;">ZAGRAJ PONOWNIE</button>
+    </div>
+
+    <script>
+        let score = 0;
+        let seconds = 0;
+        let remainingAnswers = 1;
+        let isGameOver = false;
+        const correctAnswer = "do piwnicy";
+
+        // Timer
+        const timerInterval = setInterval(() => {
+            if(!isGameOver) {
+                seconds++;
+                let mins = Math.floor(seconds / 60);
+                let secs = seconds % 60;
+                document.getElementById('timer').innerText = 
+                    `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+        }, 1000);
+
+        function gameOver() {
+            isGameOver = true;
+            clearInterval(timerInterval);
+            const screen = document.getElementById('game-over-screen');
+            document.getElementById('final-score').innerText = `Twój wynik: ${score} PKT`;
+            screen.style.display = 'flex';
+        }
+
+        function checkAnswer() {
+            if(isGameOver) return;
+
+            const inputField = document.getElementById('answerInput');
+            const userInput = inputField.value.trim().toLowerCase();
+
+            if (userInput === correctAnswer) {
+                score += 50;
+                remainingAnswers--;
+                
+                document.getElementById('points').innerText = `Pkt: ${score}`;
+                document.getElementById('remaining').innerText = remainingAnswers;
+                
+                document.getElementById('feedback').innerText = "DOBRZE!";
+                document.getElementById('feedback').style.color = "green";
+                
+                inputField.disabled = true;
+                // Jeśli to było ostatnie pytanie, też możemy zakończyć grę jako sukces
+                setTimeout(gameOver, 1000); 
+            } else {
+                // BŁĘDNA ODPOWIEDŹ = KONIEC GRY
+                gameOver();
+            }
+        }
+
+        document.getElementById('answerInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') checkAnswer();
+        });
+    </script>
+</body>
+</html>
