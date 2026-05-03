@@ -167,6 +167,17 @@
         
         let foundAnswers = [];
 
+        // Funkcja czyszcząca tekst ze znaków specjalnych dla łatwiejszego porównywania
+        function simplify(text) {
+            return text.toLowerCase()
+                       .replace(/[;!:*/\-_(),]/g, '') // Usuwa znaki: ; ! : * / - _ ( ) ,
+                       .replace(/\s+/g, '')          // Usuwa wszystkie spacje
+                       .trim();
+        }
+
+        // Tworzymy uproszczoną listę odpowiedzi do sprawdzania
+        const simplifiedRequired = requiredAnswers.map(simplify);
+
         const timerInterval = setInterval(() => {
             if(!isGameOver) {
                 seconds++;
@@ -190,17 +201,22 @@
         function checkAnswer() {
             if(isGameOver) return;
             const inputField = document.getElementById('answerInput');
-            // Czyścimy tekst i ignorujemy gwiazdkę przy Monster Hunter, jeśli gracz ją wpisze
-            let userInput = inputField.value.trim().toLowerCase().replace(/\*/g, '').replace(/\s+/g, ' ');
+            const rawInput = inputField.value.trim();
+            const cleanInput = simplify(rawInput);
 
-            if (userInput === "") return;
+            if (cleanInput === "") return;
 
-            if (requiredAnswers.includes(userInput)) {
-                if (foundAnswers.includes(userInput)) {
-                    showEndScreen(false);
+            // Sprawdzamy, czy uproszczone wejście pasuje do uproszczonej listy
+            const index = simplifiedRequired.indexOf(cleanInput);
+
+            if (index !== -1) {
+                const originalName = requiredAnswers[index]; // Pobieramy ładną nazwę do wyświetlenia
+
+                if (foundAnswers.includes(originalName)) {
+                    showEndScreen(false); // Powtórka = koniec gry
                 } else {
                     score += 1;
-                    foundAnswers.push(userInput);
+                    foundAnswers.push(originalName);
                     document.getElementById('points').innerText = `Pkt: ${score}`;
                     document.getElementById('remaining').innerText = requiredAnswers.length - foundAnswers.length;
                     document.getElementById('found-list').innerText = "Znalezione: " + foundAnswers.join(", ");
@@ -215,7 +231,7 @@
                     if (foundAnswers.length === requiredAnswers.length) showEndScreen(true);
                 }
             } else {
-                showEndScreen(false);
+                showEndScreen(false); // Błąd = koniec gry
             }
         }
 
